@@ -7,5 +7,5 @@ class apiError extends Error{
         this.status = `${code}`.startsWith(4) ? "fail":"error";
         this.isOperational = true;
     }
-}
+} 
 module.exports = apiError;

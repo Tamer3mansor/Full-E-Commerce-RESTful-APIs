@@ -18,13 +18,18 @@ app.use(express.json());
 app.use("/api/v1/category", categoryApi);
 app.all("*",notfound);
 app.use(globalError);
-const start = ()=>{
   connect(uri)
   .then((result) => console.log(result.connection.host))
   .catch((err) => console.log(err));
-app.listen(port, () => {
+  let server=app.listen(port, () => {
   console.log(`listen at port ${port}`);
 });
-};
 
-start();
+//Handel error out express <async code>
+process.on("unhandledRejection",(error)=>{
+console.error(`unhandledRejection Error ${error.name}`);
+server.close(()=>{
+  process.exit(1);
+});
+   
+});
